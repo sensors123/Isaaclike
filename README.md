@@ -45,16 +45,16 @@
 ## 截图 (Screenshots)
 
 开始界面：
-![EasyIsaac Start Menu](screenshots/start.gif)
+![Isaaclike Start Menu](screenshots/start.gif)
 
 游戏主菜单：
-![EasyIsaac Main Menu](screenshots/menu.png)
+![Isaaclike Main Menu](screenshots/menu.png)
 
 游戏画面(实际画面为60帧)：
-![EasyIsaac Gameplay](screenshots/gameplay1.gif)
+![Isaaclike Gameplay](screenshots/gameplay1.gif)
 
 排行榜：
-![EasyIsaac Rank](screenshots/rank.gif)
+![Isaaclike Rank](screenshots/rank.gif)
 
 ## 操作说明 (Controls)
 
@@ -69,12 +69,24 @@
 
 ## 游戏内容 (Game Content)
 
-* **敌人 (Enemies):** 分为两种：**红苍蝇**，**人形怪物**，*每击杀一只红苍蝇获得1金币*（1coin），*击杀一只人形怪物获得2金币*（2coin）
-* **环境 (Movement):** 石块：阻挡角色与人性怪物移动，*红苍蝇不受影响*；地刺：角色踩到时会扣除半颗心
-* **属性 (Property):** **speed**：人物速度     **tears**：射速（泪速）     **Damge**：攻击力     **Range**：子弹射程     **ShootSpeed**：子弹速度     **coin**：金币（击杀）
-* **道具 (Prop):** **午餐**：提高2最大生命上限（1红心），回复4血量（2红心）     **丘比特之箭**：子弹具有穿透敌人效果     **通灵板**：子弹具有穿过障碍物的效果  
-                   **史蒂夫**：攻击力+1     **悲伤洋葱**：发射间隔-0.5     **长条虫**:子弹射程+60     **超凡升天**：人物具有飞行能力，免疫阻挡和地刺效果
-                  **注**：*生命上限为24（12颗红心）*  *射速最小为0.1*
+* **敌人 (Enemies):** 分为两种：**红苍蝇**，**人形怪物**
+                  *每击杀一只红苍蝇获得1金币*（1coin），*击杀一只人形怪物获得2金币*（2coin）
+* **环境 (Movement):** **石块**：阻挡角色与人性怪物移动，*红苍蝇不受影响*
+                       **地刺**：角色踩到时会扣除半颗心
+* **属性 (Property):** **speed**：人物速度
+                       **tears**：射速（泪速）    
+                       **Damge**：攻击力     
+                       **Range**：子弹射程     
+                       **ShootSpeed**：子弹速度     
+                       **coin**：金币（击杀）
+* **道具 (Prop):****午餐**：提高2最大生命上限（1红心），回复4血量（2红心）     
+                  **丘比特之箭**：子弹具有穿透敌人效果     
+                  **通灵板**：子弹具有穿过障碍物的效果  
+                  **史蒂夫**：攻击力+1     
+                  **悲伤洋葱**：发射间隔-0.5     
+                  **长条虫**:子弹射程+60     
+                  **超凡升天**：人物具有飞行能力，免疫阻挡和地刺效果
+                  （**注**：*生命上限为24（12颗红心）*  *射速最小为0.1*）
 
 ## 技术栈与依赖 (Tech Stack & Dependencies)
 
