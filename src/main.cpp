@@ -1558,6 +1558,7 @@ int main()
             cleardevice();
             GameStateDeal();
             FlushBatchDraw();
+            Skill();
         }
     }
     EndBatchDraw();

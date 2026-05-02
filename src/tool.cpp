@@ -145,7 +145,16 @@ void Key_Shoot()//发射子弹按键
 
 void Skill()//释放技能按键
 {
-
+    if (Role.property.coin >= 40) {
+        if (DetectKey(' ')) {
+            Role.property.tears_f *= 0.8;
+            Role.property.range_i *= 1.2;
+            Role.property.shootSpeed_i *= 1.1;
+            Role.property.initDamage_f += 0.5;
+            Role.property.coin -=40;
+        }
+    }
+    
 }
 
 void BeginkKey()//游戏开始界面按键
