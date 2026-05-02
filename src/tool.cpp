@@ -143,6 +143,10 @@ void Key_Shoot()//发射子弹按键
     else Role.state.ifShoot_i = 0;
 }
 
+void Skill()//释放技能按键
+{
+
+}
 
 void BeginkKey()//游戏开始界面按键
 {

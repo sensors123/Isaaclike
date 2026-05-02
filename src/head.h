@@ -57,7 +57,7 @@ typedef struct {//角色属性
     int redHp_i;//红心数量
     int blueHp_i;//蓝心数量
     int light_i;//轻度，越大越轻
-
+    int coin;//金币数
 } RoleConfig;
 
 typedef struct {//角色状态
@@ -217,3 +217,4 @@ void MenuKey();//菜单界面按钮
 void RankKey();//排行榜界面按钮
 void PauseKey();//暂停时游戏按键
 void DeadKey();//死亡时游戏按键
+void Skill();//释放技能

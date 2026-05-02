@@ -218,6 +218,7 @@ void ItsetRole()//初始化角色
     Role.property.blueHp_i = 0;//蓝心数
     Role.property.initDamage_f = 3.5;//伤害
     Role.property.light_i = 4;//轻度
+    Role.property.coin = 0;//初始金币数
 
     Role.state.roleHeadNum_i = 0;//头的方向
     Role.state.roleWalkNum_i = 0;//行走方向
@@ -458,9 +459,12 @@ void RanderMenu()//显示菜单界面
     if (gameState.menuNum == 2) { settextcolor(RED); shift = 2; }
     else { settextcolor(RGB(91,83,80)); shift = 0; }
     outtextxy(Width_i*2.5 / 8+ shift, Hight_i*3 / 6+ shift, "排行榜");
+    if (gameState.menuNum == 4) { settextcolor(RED); shift = 2; }
+    else { settextcolor(RGB(91, 83, 80)); shift = 0; }
+    outtextxy(Width_i * 2.4 / 8 + shift, Hight_i * 4 / 6 + shift, "商店");
     if (gameState.menuNum == 3) { settextcolor(RED); shift = 2; }
     else { settextcolor(RGB(91,83,80)); shift = 0; }
-    outtextxy(Width_i*2.4 / 8+ shift, Hight_i*4 / 6+ shift, "返回");
+    outtextxy(Width_i*2.3 / 8+ shift, Hight_i*5 / 6+ shift, "返回");
 }
 
 void RanderRank(int mode)//排行榜
@@ -572,6 +576,10 @@ void ShowData()//显示游戏数据
     sprintf(property, "%2d", Role.property.shootSpeed_i);
     outtextxy(0, Hight_i * 18 / 30, "SHOOTSPEED");
     outtextxy(Width_i / 70, Hight_i * 19 / 30, property);
+
+    sprintf(property, "%2d", Role.property.coin);
+    outtextxy(0, Hight_i * 21 / 30, "COIN");
+    outtextxy(Width_i / 70, Hight_i * 22 / 30, property);
 
     if (gameState.roomFrame_i > 0)
     {
@@ -884,6 +892,7 @@ void UpdateEntity()//更新实体
                 current->dead_frame++;
                 if (current->dead_frame > 9*2) {
                     gameState.enemyNum--;//敌人减一
+                    Role.property.coin+=1;
                     EntityNode* temp = current;
                     if (pre != NULL) pre->next = current->next;
                     else entityHead = current->next;
@@ -934,6 +943,7 @@ void UpdateEntity()//更新实体
                 current->dead_frame++;
                 if (current->dead_frame > 9 * 2) {
                     gameState.enemyNum--;//敌人减一
+                    Role.property.coin +=2;
                     EntityNode* temp = current;
                     if (pre != NULL) pre->next = current->next;
                     else entityHead = current->next;

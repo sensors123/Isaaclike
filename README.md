@@ -1,4 +1,4 @@
-# EasyIsaac（学习项目）
+# Isaaclike（学习项目）
 
 [![Language](https://img.shields.io/badge/Language-C++(C--Style)-blue.svg)](https://isocpp.org/)
 [![Library](https://img.shields.io/badge/Library-EasyX-brightgreen.svg)](https://easyx.cn/)
@@ -22,7 +22,7 @@
 
 ## 简介 (Introduction)
 
-本项目 `EasyIsaac` 是一个基于 **EasyX** 图形库实现的 **射击小游戏**，作为 **C 语言课程设计** 完成。游戏的玩法和视觉风格模仿了著名的独立游戏 **《以撒的结合》(The Binding of Isaac)**。
+本项目 `Isaaclike` 是一个基于 **EasyX** 图形库实现的 **射击小游戏**，作为 **C 语言课程设计** 完成。游戏的玩法和视觉风格模仿了著名的独立游戏 **《以撒的结合》(The Binding of Isaac)**。
 
 因为 EasyX 库的要求使用了C++编译，但代码遵循 C 语言语法。
 运行前请阅读[安装与运行](#安装与运行-setup--run)
@@ -76,7 +76,7 @@
     * `<math.h>`
     * `<shlobj.h>` (用于特定 Windows 功能)
     * `winmm.lib` (通过 `#pragma comment(lib, "winmm.lib")` 链接，用于多媒体功能，如声音播放)
-* **开发环境 (IDE):** Visual Studio 2022
+* **开发环境 (IDE):** Visual Studio 2026
 * **操作系统 (OS):** Windows
 
 ## 安装与运行 (Setup & Run)
@@ -90,8 +90,8 @@
     * 克隆或下载此完整仓库到本地。
 
 3.  **配置 Visual Studio:**
-    * 使用 Visual Studio 2022 打开项目根目录下的 `MyIsaac.sln` 文件。
-    * 在 VS 2022界面顶部导航栏，点击 **“调试”**，下拉菜单中选择 **“MyIsaac 调试属性”**。
+    * 使用 Visual Studio 2026 打开项目根目录下的 `MyIsaac.sln` 文件。
+    * 在 VS 2026界面顶部导航栏，点击 **“调试”**，下拉菜单中选择 **“MyIsaac 调试属性”**。
     * 导航到 **配置属性 -> 高级 -> 字符集**。
     * 将其设置为 **“使用多字节字符集”**。点击“应用”并“确定”。
 
@@ -101,7 +101,7 @@
 ## 项目结构 (Project Structure)
 
 ```
-EasyIsaac/
+Isaaclike/
 ├── assets/                     # 资源文件
 │   ├── fonts/                  # 字体文件
 │   │   └── 方正流行体_GBK.TTF  # 主菜单等使用的字体
