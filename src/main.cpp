@@ -455,16 +455,13 @@ void RanderMenu()//显示菜单界面
     outtextxy(Width_i*2.7 / 8+ shift, Hight_i / 6+ shift, "经典模式");
     if (gameState.menuNum == 1) { settextcolor(RED); shift = 2; }
     else { settextcolor(RGB(91,83,80)); shift = 0; }
-    outtextxy(Width_i*2.6 / 8+ shift, Hight_i*2 / 6+ shift, "快马加鞭");
+    outtextxy(Width_i*2.6 / 8+ shift, Hight_i*2 / 6+ shift, "极速模式");
     if (gameState.menuNum == 2) { settextcolor(RED); shift = 2; }
     else { settextcolor(RGB(91,83,80)); shift = 0; }
     outtextxy(Width_i*2.5 / 8+ shift, Hight_i*3 / 6+ shift, "排行榜");
-    if (gameState.menuNum == 4) { settextcolor(RED); shift = 2; }
-    else { settextcolor(RGB(91, 83, 80)); shift = 0; }
-    outtextxy(Width_i * 2.4 / 8 + shift, Hight_i * 4 / 6 + shift, "商店");
     if (gameState.menuNum == 3) { settextcolor(RED); shift = 2; }
     else { settextcolor(RGB(91,83,80)); shift = 0; }
-    outtextxy(Width_i*2.3 / 8+ shift, Hight_i*5 / 6+ shift, "返回");
+    outtextxy(Width_i*2.4 / 8+ shift, Hight_i*4 / 6+ shift, "返回");
 }
 
 void RanderRank(int mode)//排行榜
@@ -484,7 +481,7 @@ void RanderRank(int mode)//排行榜
     }
     else if (mode == 1)
     {
-        outtextxy(Width_i /4, Hight_i / 8, " RANK: 快马加鞭");
+        outtextxy(Width_i /4, Hight_i / 8, " RANK: 极速模式");
         sprintf(fileName, "%s/score1.dat",path);
     }
     else return;
