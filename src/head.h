@@ -1,14 +1,14 @@
-#pragma once
+#pragma once//防止头文件重复包含
 #pragma warning(disable:4996)
-#pragma comment(lib, "winmm.lib")
+#pragma comment(lib, "winmm.lib")//链接Windows多媒体库以实现音效播放和定时器
 #include <stdio.h>
-#include <stdlib.h>
-#include <easyx.h>
-#include <time.h>
-#include <math.h>
-#include <shlobj.h> 
+#include <stdlib.h>//
+#include <easyx.h>//Easyx图形库
+#include <time.h>//时间，随机数
+#include <math.h>//几何、物理计算
+#include <shlobj.h> //文件路径操作，存档读写
 #define ROW 7
-#define COL 13
+#define COL 13//宏定义地图尺寸
 
 typedef struct {//游戏状态
     int level;//当前所处关卡
