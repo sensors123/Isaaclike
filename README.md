@@ -1,14 +1,8 @@
-# Isaaclike（学习项目）
+# Isaaclike#
 
-[![Language](https://img.shields.io/badge/Language-C++(C--Style)-blue.svg)](https://isocpp.org/)
-[![Library](https://img.shields.io/badge/Library-EasyX-brightgreen.svg)](https://easyx.cn/)
-[![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey.svg)]()
-[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](https://unlicense.org/)
-#
 * 项目概览
   * [简介](#简介-introduction)
   * [特性](#特性-features)
-  * [截图](#截图-screenshots)
 * 使用指南
   * [操作说明](#操作说明-controls)
   * [安装与运行（必读）](#安装与运行-setup--run)
@@ -18,13 +12,12 @@
   * [已知问题](#已知问题与局限性-known-issues--limitations)
 * 其他信息
   * [致谢](#致谢-acknowledgements)
-  * [联系方式](#联系方式-contact)
 
 ## 简介 (Introduction)
 
-本项目 `Isaaclike` 是一个基于 **EasyX** 图形库实现的 **射击小游戏**，作为 **高级语言程序设计课程大作业** 完成。游戏的玩法和视觉风格模仿了著名的独立游戏 **《以撒的结合》(The Binding of Isaac)**。
+* 本项目 **EasyIsaac（Isaaclike）** 是一款基于 **EasyX** 图形库实现的 2D 俯视角射击小游戏，作为 **高级语言程序设计课程大作业** 完成。游戏的玩法与视觉风格模仿了著名独立游戏 **《以撒的结合》（The Binding of Isaac）**——一款由 Edmund McMillen 和 Florian Himsl 创作的 Roguelike 射击游戏。
 
-因为 EasyX 库的要求使用了C++编译，但部分代码仍遵循 C 语言语法。
+* 项目选择 C++ 作为开发语言，使用 EasyX 图形库进行 2D 渲染，在 Visual Studio 2026 集成开发环境中完成编码、调试与构建。项目完全开源，遵循 Unlicense 协议。
 运行前请阅读[安装与运行](#安装与运行-setup--run)
 
 **本项目完全开源**，您可以自由使用、修改、分发，无需任何限制。
@@ -42,19 +35,6 @@
 * 使用了自定义字体（方正流行体_GBK）用于界面显示。
 * 支持显示碰撞箱（调试功能）。
 
-## 截图 (Screenshots)
-
-开始界面：
-![Isaaclike Start Menu](screenshots/start.gif)
-
-游戏主菜单：
-![Isaaclike Main Menu](screenshots/menu.png)
-
-游戏画面(实际画面为60帧)：
-![Isaaclike Gameplay](screenshots/gameplay1.gif)
-
-排行榜：
-![Isaaclike Rank](screenshots/rank.gif)
 
 ## 操作说明 (Controls)
 
