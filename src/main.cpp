@@ -277,43 +277,48 @@ void InitEntity()//初始化实体和子弹
 
 void RanderHealth()//渲染生命值
 {
-    if (Role.property.redHp_i>Role.property.maxHp_i) Role.property.redHp_i = Role.property.maxHp_i;
-    if (Role.property.blueHp_i + Role.property.maxHp_i > 24)Role.property.blueHp_i = 24 - Role.property.maxHp_i;
-    int healthX_i= Width_i / 9, healthY_i= Hight_i / 20;//生命值位置
-    int nowX_i = healthX_i, nowY_i = healthY_i;
-    int fullRedHp_i = Role.property.redHp_i / 2,//整红心
-        halfRedHp_i = Role.property.redHp_i % 2,//半红心
-        EmptyRedHp_i = Role.property.maxHp_i / 2 - fullRedHp_i - halfRedHp_i;//空红心
+
+    if (Role.property.redHp_i > Role.property.maxHp_i)
+        Role.property.redHp_i = Role.property.maxHp_i;
+
+    int healthX_i = Width_i / 9, healthY_i = Hight_i / 20;
+    int slots = Role.property.maxHp_i / 2;
+    int fullRedHp_i = Role.property.redHp_i / 2;
+    int halfRedHp_i = Role.property.redHp_i % 2;
+    int EmptyRedHp_i = slots - fullRedHp_i - halfRedHp_i;
+
     int k;
-    for (int i = 0; i < 2; i++) {
-        for (int j = 0; j < 6; j++) {
-            if (fullRedHp_i > 0) { k = 0; fullRedHp_i--; }
-            else if (halfRedHp_i >0) { k = 1; halfRedHp_i--; }
-            else if (EmptyRedHp_i > 0) { k = 2; EmptyRedHp_i--; }
-            else break;
-            putimage(nowX_i + j  * 40, nowY_i + i * 40, health_front+k, SRCAND);
-            putimage(nowX_i + j * 40, nowY_i + i * 40, health_back+k, SRCPAINT);
-        }
+    for (int j = 0; j < slots; j++)   // 只遍历 slot 数，不遍历 12 格
+    {
+        if (fullRedHp_i > 0) { k = 0; fullRedHp_i--; }
+        else if (halfRedHp_i > 0) { k = 1; halfRedHp_i--; }
+        else if (EmptyRedHp_i > 0) { k = 2; EmptyRedHp_i--; }
+        else break;
+        putimage(healthX_i + j * 40, healthY_i, health_front + k, SRCAND);
+        putimage(healthX_i + j * 40, healthY_i, health_back + k, SRCPAINT);
     }
 }
 
 void RanderSoul()//渲染蓝心
 {
-    int soulX_i = Width_i / 9, soulY_i = Hight_i / 20+45;//生命值位置
-    int nowX_i = soulX_i, nowY_i = soulY_i;
-    int fullBlueHp_i = Role.property.blueHp_i / 2, //满蓝心
-        halfBlueHp_i = Role.property.blueHp_i % 2;//半蓝心
-    int EmptyBlueHp_i = Role.property.maxHp_i / 2 - fullBlueHp_i - halfBlueHp_i;//空红心
+    if (Role.property.blueHp_i > Role.property.maxSoul)
+        Role.property.blueHp_i = Role.property.maxSoul;
+
+    int soulX_i = Width_i / 9, soulY_i = Hight_i / 20 + 50;
+    int slots = Role.property.maxSoul / 2;
+    int fullBlueHp_i = Role.property.blueHp_i / 2;
+    int halfBlueHp_i = Role.property.blueHp_i % 2;
+    int EmptyBlueHp_i = slots - fullBlueHp_i - halfBlueHp_i;
+
     int k;
-    for (int i = 0; i < 2; i++) {
-        for (int j = 0; j < 6; j++) {
-            if (fullBlueHp_i > 0) { k = 0; fullBlueHp_i--; }
-            else if (halfBlueHp_i > 0) { k = 1; halfBlueHp_i--; }
-            else if (EmptyBlueHp_i > 0) { k = 2; EmptyBlueHp_i--; }
-            else break;
-            putimage(nowX_i + j * 40, nowY_i + i * 40, soul_front + k, SRCAND);
-            putimage(nowX_i + j * 40, nowY_i + i * 40, soul_back + k, SRCPAINT);
-        }
+    for (int j = 0; j < slots; j++)
+    {
+        if (fullBlueHp_i > 0) { k = 0; fullBlueHp_i--; }
+        else if (halfBlueHp_i > 0) { k = 1; halfBlueHp_i--; }
+        else if (EmptyBlueHp_i > 0) { k = 2; EmptyBlueHp_i--; }
+        else break;
+        putimage(soulX_i + j * 40, soulY_i, soul_front + k, SRCAND);
+        putimage(soulX_i + j * 40, soulY_i, soul_back + k, SRCPAINT);
     }
 }
 
