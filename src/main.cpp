@@ -250,6 +250,8 @@ void ItsetRole()//初始化角色
     Role.state.pene=0;//是否子弹穿透效果
     Role.state.fly=0;//是否飞行
     Role.state.lift = 0;//是否举起物品
+    Role.state.regenTimer = 0;//是否开始回复蓝心
+    Role.state.regening = 0;//是否回满蓝心
 }
 
 void InitEntity()//初始化实体和子弹
@@ -325,6 +327,11 @@ void GetHurt(int damage_i)//角色受伤
         damage_i--;
     }
     if (!(Role.property.redHp_i + Role.property.blueHp_i))Role.player.hp--;
+    if (Role.property.blueHp_i < Role.property.maxSoul && Role.player.hp)
+    {
+        Role.state.regenTimer = 0;
+        Role.state.regening = 1;
+    }
     if (!Role.player.hp)Role.state.deadFrame_i= 70;
 }
 
@@ -1472,10 +1479,29 @@ void Init()//初始化
     GenerateMap(Room.room, 1);
     SummonEntity();
     gameState.level = 1;
+    Role.state.regening = 0;
+    Role.state.regenTimer = 0;
+}
+
+void RegenSoul() {//蓝心自动回复
+    if (!Role.state.regening) return;
+    if (Role.property.blueHp_i >= Role.property.maxSoul)
+    {
+        Role.state.regening = 0;
+        Role.state.regenTimer = 0;
+        return;
+    }
+    Role.state.regenTimer++;
+    if (Role.state.regenTimer >= frameRate_i * 8)
+    {
+        Role.state.regenTimer = 0;
+        Role.property.blueHp_i++;
+    }
 }
 
 void Update()//更新游戏
 {
+    RegenSoul();//蓝心自动回复
     gameState.gameFrame_i++;//帧计数
     Key();//游戏时按键
     CalculateScore();//计算总分

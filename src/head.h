@@ -84,6 +84,8 @@ typedef struct {//角色状态
     int shootFrame_i; // 射击后帧数
     int hurtFrame_i;//受伤后帧数
     int deadFrame_i;//死亡后帧数
+    int regenTimer;//蓝心回复计时器
+    int regening;//是否回复中
 } PlayerState;
 
 typedef struct {//玩家角色结构体
@@ -169,7 +171,6 @@ void InitEntity();//初始化实体和子弹
 void GameStateDeal();//游戏状态处理
 void Update();//更新游戏
 void NextLevel();//进入下一个关卡
-
 void BGM();//音乐输出
 void Sound();//音效输出
 
@@ -199,6 +200,7 @@ void UpdateEntity();//更新实体
 void UpdateBullets(); // 更新子弹
 void Attack();//处理角色子弹攻击
 void SummonEntity();//生成实体处理
+void RegenSoul();//蓝心自动回复
 
 //碰撞处理
 void limit();//防止角色溢出屏幕
