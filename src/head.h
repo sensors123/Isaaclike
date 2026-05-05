@@ -43,6 +43,7 @@ typedef struct {//结构体小球
     float dy;
     int r;//碰撞半径
     int hp;//生命值
+    int soul;//蓝心
     float speed;//最大速度
 }Ball;
 
@@ -56,6 +57,7 @@ typedef struct {//角色属性
     int maxHp_i;//红心上限
     int redHp_i;//红心数量
     int blueHp_i;//蓝心数量
+    int maxSoul;//蓝心上限
     int light_i;//轻度，越大越轻
     int coin;//金币数
 } RoleConfig;
@@ -174,6 +176,7 @@ void Sound();//音效输出
 //渲染
 void show();//输出游戏中画面
 void RanderHealth();//渲染生命值
+void RanderSoul();//渲染蓝心
 void UpdateRolePic();//更新玩家贴图
 void RanderRole();//渲染角色
 void RanderObstacle();//渲染障碍物
@@ -190,7 +193,6 @@ void ShowData();//显示游戏数据
 
 //实体管理
 void MoveRole();//角色移动
-void GetHurt();//角色受伤
 void AddBullet(int dx, int dy);//添加子弹
 void AddEntity(int x, int y, int type, int camp);//添加实体
 void UpdateEntity();//更新实体

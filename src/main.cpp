@@ -6,6 +6,7 @@ const int RoomWidth_i = (Hight_i * 4 / 6) / 7;//房间单元格宽度
 const int MAXSCORES = 9;//排行榜最大数量
 
 const int health_count = 5;//生命值贴图数量
+const int soul_count = 5;//蓝心贴图
 
 const int Role_head_count = 4;//头贴图数量
 const int Role_shoot_count = 4;//头发射贴图数量
@@ -36,7 +37,8 @@ IMAGE background[2];//房间背景
 IMAGE pauseface_front[2];//暂停界面
 IMAGE pauseface_back[2];
 IMAGE testament_front,testament_back;//死亡界面
-IMAGE health_front[5], health_back[5];;//生命值贴图
+IMAGE health_front[5], health_back[5];//生命值贴图
+IMAGE soul_front[5], soul_back[5];//蓝心贴图
 IMAGE role_head_front[20], role_head_back[20];//角色头贴图
 IMAGE role_walk_front[30], role_walk_back[30];//角色身体贴图
 IMAGE role_lift_front, role_lift_back;//角色举起道具贴图
@@ -139,6 +141,12 @@ void InitPIC()//加载图片
         loadimage(&health_front[i], filename_front);
         loadimage(&health_back[i], filename_back);
     }
+    for (i = 0; i < soul_count; i++) {//加载蓝心
+        sprintf(filename_front, "../assets/images/panel/soul%d_front.jpg", i);
+        sprintf(filename_back, "../assets/images/panel/soul%d_back.jpg", i);
+        loadimage(&soul_front[i], filename_front);
+        loadimage(&soul_back[i], filename_back);
+    }
     for (i = 0; i < redHp_count; i++) {//加载红心掉落物
         sprintf(filename_front, "../assets/images/drops/itemRedHp%d_front.jpg", i);
         sprintf(filename_back, "../assets/images/drops/itemRedHp%d_back.jpg", i);
@@ -215,7 +223,8 @@ void ItsetRole()//初始化角色
     Role.property.friction_f = 0.4;//摩擦力（像素）
     Role.property.maxHp_i = 6;//最大红心数量
     Role.property.redHp_i = 6;//红心数
-    Role.property.blueHp_i = 0;//蓝心数
+    Role.property.maxSoul = 6;//最大蓝心数
+    Role.property.blueHp_i = 6;//蓝心数
     Role.property.initDamage_f = 3.5;//伤害
     Role.property.light_i = 4;//轻度
     Role.property.coin = 0;//初始金币数
@@ -272,20 +281,36 @@ void RanderHealth()//渲染生命值
     int nowX_i = healthX_i, nowY_i = healthY_i;
     int fullRedHp_i = Role.property.redHp_i / 2,//整红心
         halfRedHp_i = Role.property.redHp_i % 2,//半红心
-        EmptyRedHp_i=Role.property.maxHp_i / 2 - fullRedHp_i - halfRedHp_i,//空红心
-        fullBlueHp_i = Role.property.blueHp_i / 2, //满蓝心
-        halfBlueHp_i = Role.property.blueHp_i % 2;//半蓝心
+        EmptyRedHp_i = Role.property.maxHp_i / 2 - fullRedHp_i - halfRedHp_i;//空红心
     int k;
     for (int i = 0; i < 2; i++) {
         for (int j = 0; j < 6; j++) {
             if (fullRedHp_i > 0) { k = 0; fullRedHp_i--; }
             else if (halfRedHp_i >0) { k = 1; halfRedHp_i--; }
             else if (EmptyRedHp_i > 0) { k = 2; EmptyRedHp_i--; }
-            else if (fullBlueHp_i >0) { k = 3; fullBlueHp_i--; }
-            else if (halfBlueHp_i >0) { k = 4; halfBlueHp_i--; }
             else break;
             putimage(nowX_i + j  * 40, nowY_i + i * 40, health_front+k, SRCAND);
             putimage(nowX_i + j * 40, nowY_i + i * 40, health_back+k, SRCPAINT);
+        }
+    }
+}
+
+void RanderSoul()//渲染蓝心
+{
+    int soulX_i = Width_i / 9, soulY_i = Hight_i / 20+45;//生命值位置
+    int nowX_i = soulX_i, nowY_i = soulY_i;
+    int fullBlueHp_i = Role.property.blueHp_i / 2, //满蓝心
+        halfBlueHp_i = Role.property.blueHp_i % 2;//半蓝心
+    int EmptyBlueHp_i = Role.property.maxHp_i / 2 - fullBlueHp_i - halfBlueHp_i;//空红心
+    int k;
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 6; j++) {
+            if (fullBlueHp_i > 0) { k = 0; fullBlueHp_i--; }
+            else if (halfBlueHp_i > 0) { k = 1; halfBlueHp_i--; }
+            else if (EmptyBlueHp_i > 0) { k = 2; EmptyBlueHp_i--; }
+            else break;
+            putimage(nowX_i + j * 40, nowY_i + i * 40, soul_front + k, SRCAND);
+            putimage(nowX_i + j * 40, nowY_i + i * 40, soul_back + k, SRCPAINT);
         }
     }
 }
@@ -594,6 +619,7 @@ void show()//输出游戏中画面
     RanderRole();//角色
     ShowBullets();//子弹
     RanderHealth();//生命值
+    RanderSoul();//蓝心
     ShowData();//显示游戏数据
     DrowRoomLine();//画出方格
     RanderPause();//暂停页面
