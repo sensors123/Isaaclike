@@ -27,6 +27,9 @@ typedef struct {//游戏状态
     int nowFrame_i; //当前帧数
     int gameFrame_i;//本局帧数
     int roomFrame_i;//关卡完成后停留帧数
+    int rewardRoom;      // 0=普通关卡, 1=奖励关
+    int rewardPicked;    // 0=未拾取, 1=已拾取
+    int rewardTimer;     // 奖励关读条计时
 } GameState;
 
 typedef struct {//房间状态
@@ -171,6 +174,7 @@ void InitEntity();//初始化实体和子弹
 void GameStateDeal();//游戏状态处理
 void Update();//更新游戏
 void NextLevel();//进入下一个关卡
+void EnterRewardRoom();  // 进入奖励关
 void BGM();//音乐输出
 void Sound();//音效输出
 

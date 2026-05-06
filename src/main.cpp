@@ -199,6 +199,9 @@ void ItsetGameState()//初始化游戏属性
     gameState.pause_i = 0;
     gameState.restart_i = 0;
     gameState.showCollision_i = 0;
+    gameState.rewardRoom = 0;
+    gameState.rewardPicked = 0;
+    gameState.rewardTimer = 0;
 }
 
 void ItsetRole()//初始化角色
@@ -872,12 +875,14 @@ void ShowEntity()//渲染实体
         }
         else if (current->type > 20)
         {
-            realX_entity = current->entity.x - prop_front[0].getwidth() / 2;
-            realY_entity = current->entity.y - prop_back[0].getheight() / 2;
-            if (gameState.showCollision_i)
-                circle(current->entity.x, current->entity.y, current->entity.r);
-            putimage(realX_entity, realY_entity, &prop_front[current->type % 10 - 1], SRCAND);
-            putimage(realX_entity, realY_entity, &prop_back[current->type % 10 - 1], SRCPAINT);
+            
+                realX_entity = current->entity.x - prop_front[0].getwidth() / 2;
+                realY_entity = current->entity.y - prop_back[0].getheight() / 2;
+                if (gameState.showCollision_i)
+                    circle(current->entity.x, current->entity.y, current->entity.r);
+                putimage(realX_entity, realY_entity, &prop_front[current->type % 10 - 1], SRCAND);
+                putimage(realX_entity, realY_entity, &prop_back[current->type % 10 - 1], SRCPAINT);
+            
         }
         current = current->next;
     }
@@ -1015,6 +1020,29 @@ void UpdateEntity()//更新实体
                 Role.state.lift = 1;//举起物品
                 current->entity.hp = 0;
                 mciSendString("play getProp from 0", NULL, 0, NULL);
+                if (gameState.rewardRoom)
+                {
+                    gameState.rewardPicked = 1;
+                    EntityNode* other = entityHead;
+                    EntityNode* otherPrev = NULL;
+                    while (other != NULL)
+                    {
+                        EntityNode* next = other->next;
+                        if (other != current && other->type > 20)
+                        {
+                            if (otherPrev)
+                                otherPrev->next = other->next;
+                            else
+                                entityHead = other->next;
+                            free(other);
+                        }
+                        else
+                        {
+                            otherPrev = other;
+                        }
+                        other = next;
+                    }
+                }
                 switch (current->type % 10) {
                 case 1:
                     Role.property.maxHp_i += 2;
@@ -1486,6 +1514,9 @@ void Init()//初始化
     gameState.level = 1;
     Role.state.regening = 0;
     Role.state.regenTimer = 0;
+    gameState.rewardRoom = 0;
+    gameState.rewardPicked = 0;
+    gameState.rewardTimer = 0;
 }
 
 void RegenSoul() {//蓝心自动回复
@@ -1506,6 +1537,26 @@ void RegenSoul() {//蓝心自动回复
 
 void Update()//更新游戏
 {
+    if (gameState.rewardRoom)
+    {
+        Key();
+        MoveRole();
+        limit();
+        UpdateEntity();
+        UpdateRolePic();
+        if (gameState.rewardPicked)
+        {
+            gameState.roomFrame_i++;
+            if (gameState.roomFrame_i > 60 * gameState.Roompause)
+            {
+                gameState.rewardRoom = 0;
+                gameState.rewardPicked = 0;
+                gameState.roomFrame_i = 0;
+                NextLevel();
+            }
+        }
+        return;
+    }
     RegenSoul();//蓝心自动回复
     gameState.gameFrame_i++;//帧计数
     Key();//游戏时按键
@@ -1522,6 +1573,42 @@ void Update()//更新游戏
     UpdateRolePic();
 }
 
+void EnterRewardRoom()
+{
+    gameState.rewardRoom = 1;
+    gameState.rewardPicked = 0;
+    gameState.rewardTimer = 0;
+
+    InitEntity();
+
+    for (int i = 0; i < ROW; i++)
+        for (int j = 0; j < COL; j++)
+            Room.room[i][j] = 0;
+
+    int props[3] = { 0 };
+    for (int i = 0; i < 3; i++)
+    {
+        int type;
+        int duplicate;
+        do {
+            type = rand() % 7 + 1;
+            duplicate = 0;
+            for (int j = 0; j < i; j++)
+                if (props[j] == type) duplicate = 1;
+        } while (duplicate);
+        props[i] = type;
+    }
+
+    int propCols[3] = { 3, 6, 9 };
+    for (int i = 0; i < 3; i++)
+    {
+        float x = 0, y = 0;
+        int row = 2, col = propCols[i];
+        DockArrayToCoordinate(&row, &col, &x, &y, 1);
+        AddEntity(x, y, 20 + props[i], 0);
+    }
+}
+
 void NextLevel()//进入下一个关卡
 {
 
@@ -1530,6 +1617,11 @@ void NextLevel()//进入下一个关卡
     Role.player.y = Hight_i * 5 / 6;
     Role.state.hurtFrame_i = 30;
     InitEntity();
+    if (gameState.level % 10 == 0)
+    {
+        EnterRewardRoom();
+        return;
+    }
     Role.state.lift = 0;
     GenerateMap(Room.room, gameState.level);
     SummonEntity();
@@ -1581,7 +1673,7 @@ void GameStateDeal()//游戏状态处理
         else if (gameState.pause_i)PauseKey();//暂停按键
         else
         {
-            if (gameState.enemyNum <= 0)//判断没有敌人
+            if (gameState.enemyNum <= 0 && !gameState.rewardRoom)//判断没有敌人或是奖励关是否拿取道具
             {
                 gameState.roomFrame_i++;
                 if (gameState.roomFrame_i > 60 * gameState.Roompause)
