@@ -167,9 +167,7 @@ void InitPIC()//加载图片
     }
     loadimage(&role_lift_front, "../assets/images/character/isaac_lift_front.jpg");//角色举起道具
     loadimage(&role_lift_back, "../assets/images/character/isaac_lift_back.jpg");
-    loadimage(&role_dead_front, "../assets/images/character/isaac_dead_front.jpg");
-    loadimage(&role_dead_front, "../assets/images/character/isaac_dead_front.jpg");
-
+    
     loadimage(&role_dead_front,"../assets/images/character/isaac_dead_front.jpg");
     loadimage(&role_dead_back,"../assets/images/character/isaac_dead_back.jpg");
     loadimage(&role_fall_front, "../assets/images/character/isaac_fall_front.jpg");
@@ -813,7 +811,7 @@ void ShowEntity()//渲染实体
         else if (current->type == 2) {//人形怪物
             if (current->entity.hp > 0)
             {
-                if (fabs(current->entity.dx - current->entity.dy) <= 0.1 && fabs(current->entity.dx) <= 0.1) Role.state.roleWalkNum_i = 0;
+                if (fabs(current->entity.dx - current->entity.dy) <= 0.1 && fabs(current->entity.dx) <= 0.1) current->aniNum = 0;
                 else if (fabs(current->entity.dx) - fabs(current->entity.dy) > 0.1)//动画
                 {
                     if (current->entity.dx > 0.1) {
@@ -1441,10 +1439,12 @@ void Sound()//输出音效
     static int preHp = 0;
     if (gameState.restart_i)
     {
-        preHp = 6;
+        preHp = Role.property.redHp_i + Role.property.blueHp_i;
+        preHp = Min(preHp, Role.property.maxHp_i + Role.property.maxSoul);
         return;
     }
-    int nowHp = Min(Role.property.maxHp_i, Role.property.redHp_i + Role.property.blueHp_i);
+    int redPart = Min(Role.property.redHp_i, Role.property.maxHp_i);
+    int nowHp = redPart + Role.property.blueHp_i;
     if (preHp > nowHp)
     {
         mciSendString("play hurt from 0", NULL, 0, NULL);

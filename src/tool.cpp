@@ -188,6 +188,7 @@ void MenuKey()//菜单界面按键
             gameState.mode = 1;
             frameRate_i = 120;
         }
+        break;
     case 2:
         if (DetectKey(' ')||DetectKey(VK_RETURN))
         {
