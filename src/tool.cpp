@@ -1,4 +1,6 @@
 #include "head.h"
+#include <string>
+#include <vector>
 
 typedef struct {//按键是否按下结构体
     int key;

@@ -1,4 +1,6 @@
 #include "head.h"
+#include <string>
+#include <vector>
 const int Width_i = 1326;//窗口宽度
 const int Hight_i = 886;//窗口高度
 const int RoomLength_i = (Width_i * 7 / 9) / 13;//房间单元格长度
@@ -28,8 +30,8 @@ int frameRate_i = 60;//最大帧率
 GameState gameState;
 RoomState Room;
 Character Role;
-BulletNode* bulletHead = NULL; // 子弹链表的头指针
-EntityNode* entityHead = NULL;//实体链表头指针
+BulletNode* bulletHead = nullptr; // 子弹链表的头指针
+EntityNode* entityHead = nullptr;//实体链表头指针
 
 IMAGE beginground[2];//开始界面
 IMAGE menu;//菜单
@@ -56,15 +58,15 @@ IMAGE propName_front, propName_back;//道具名称背景
 
 void InitSound()//加载声音
 {
-    mciSendString("open \"../assets/sounds/menu.mp3\" alias menu", NULL, 0, NULL);
-    mciSendString("open \"../assets/sounds/room.mp3\" alias room", NULL, 0, NULL);
-    mciSendString("open \"../assets/sounds/fast.mp3\" alias fast", NULL, 0, NULL);
-    mciSendString("open \"../assets/sounds/deadPic.mp3\" alias deadPic", NULL, 0, NULL);
-    mciSendString("open \"../assets/sounds/hurt0.mp3\" alias hurt", NULL, 0, NULL);//受伤声音
-    mciSendString("open \"../assets/sounds/shoot.mp3\" alias shoot", NULL, 0, NULL);//射击声音
-    mciSendString("open \"../assets/sounds/shootBreak.mp3\" alias shootBreak", NULL, 0, NULL);//击中(眼泪爆裂)声音
-    mciSendString("open \"../assets/sounds/dead.mp3\" alias dead", NULL, 0, NULL);//死亡声音
-    mciSendString("open \"../assets/sounds/getProp.mp3\" alias getProp", NULL, 0, NULL);//获得道具声音
+    mciSendString("open \"../assets/sounds/menu.mp3\" alias menu", nullptr, 0, nullptr);
+    mciSendString("open \"../assets/sounds/room.mp3\" alias room", nullptr, 0, nullptr);
+    mciSendString("open \"../assets/sounds/fast.mp3\" alias fast", nullptr, 0, nullptr);
+    mciSendString("open \"../assets/sounds/deadPic.mp3\" alias deadPic", nullptr, 0, nullptr);
+    mciSendString("open \"../assets/sounds/hurt0.mp3\" alias hurt", nullptr, 0, nullptr);//受伤声音
+    mciSendString("open \"../assets/sounds/shoot.mp3\" alias shoot", nullptr, 0, nullptr);//射击声音
+    mciSendString("open \"../assets/sounds/shootBreak.mp3\" alias shootBreak", nullptr, 0, nullptr);//击中(眼泪爆裂)声音
+    mciSendString("open \"../assets/sounds/dead.mp3\" alias dead", nullptr, 0, nullptr);//死亡声音
+    mciSendString("open \"../assets/sounds/getProp.mp3\" alias getProp", nullptr, 0, nullptr);//获得道具声音
 }
 
 void InitPIC()//加载图片
@@ -259,21 +261,21 @@ void InitEntity()//初始化实体和子弹
 {
     gameState.enemyNum = 0;
     EntityNode* current1 = entityHead;
-    while (current1 != NULL)
+    while (current1 != nullptr)
     {
         EntityNode* temp=current1;
         current1=current1->next;
         free(temp);
     }
-    entityHead = NULL;
+    entityHead = nullptr;
     BulletNode* current = bulletHead;
-    while (current != NULL)
+    while (current != nullptr)
     {
         BulletNode* temp = current;
         current = current->next;
         free(temp);
     }
-    bulletHead = NULL;
+    bulletHead = nullptr;
 }
 
 void RanderHealth()//渲染生命值
@@ -385,7 +387,7 @@ void UpdateRolePic()//更新玩家贴图
     {
         if (Role.state.beginShoot_i) {
             Role.state.roleHeadNum_i = Role.state.roleHeadNum_i % 10 + 10;
-            mciSendString("play shoot from 0", NULL, 0, NULL);
+            mciSendString("play shoot from 0", nullptr, 0, nullptr);
             Role.state.shootFrame_i = 0;
         }
     }
@@ -505,9 +507,9 @@ void RanderMenu()//显示菜单界面
 void RanderRank(int mode)//排行榜
 {
     char path[MAX_PATH];
-    SHGetFolderPath(NULL, CSIDL_PERSONAL, NULL, 0, path);// 获取用户文档目录的路径
+    SHGetFolderPath(nullptr, CSIDL_PERSONAL, nullptr, 0, path);// 获取用户文档目录的路径
     strcat(path, "\\save");// 在文档目录路径后追加文件夹名
-    CreateDirectory(path, NULL);//创建文件夹
+    CreateDirectory(path, nullptr);//创建文件夹
     putimage(0, 0, &menu);
     settextstyle(100, 0, "方正流行体_GBK");
     settextcolor(RGB(91,83,80));
@@ -679,7 +681,7 @@ void MoveRole()//角色移动
 
 void AddBullet(int dx, int dy) {//添加子弹
     BulletNode* newNode = (BulletNode*)malloc(sizeof(BulletNode));
-    if (newNode == NULL) return;
+    if (newNode == nullptr) return;
     newNode->bullet.x = Role.player.x;
     newNode->bullet.y = Role.player.y;
     newNode->oldx = Role.player.x;
@@ -719,7 +721,7 @@ void DrowRoomLine()//画出房间方格
 void AddEntity(int x, int y,int type,int camp)//添加实体
 {
     EntityNode* newNode = (EntityNode*)malloc(sizeof(EntityNode));
-    if (newNode == NULL)return;
+    if (newNode == nullptr)return;
     if (type == 1) //红苍蝇
     {
         newNode->type = type;
@@ -791,7 +793,7 @@ void ShowEntity()//渲染实体
 {
     EntityNode* current = entityHead;
     int realX_entity=0,realY_entity=0,ani=0;
-    while (current!=NULL)
+    while (current!=nullptr)
     {
         if (current->type == 1) {//红苍蝇
             if (current->entity.hp>0)
@@ -891,8 +893,8 @@ void ShowEntity()//渲染实体
 void UpdateEntity()//更新实体
 {
     EntityNode* current = entityHead;
-    EntityNode* pre = NULL;
-    while (current !=NULL)
+    EntityNode* pre = nullptr;
+    while (current !=nullptr)
     {
         if (current->type == 1) {//红苍蝇
             if (current->entity.hp > 0) {
@@ -932,11 +934,11 @@ void UpdateEntity()//更新实体
                     gameState.enemyNum--;//敌人减一
                     Role.property.coin+=1;
                     EntityNode* temp = current;
-                    if (pre != NULL) pre->next = current->next;
+                    if (pre != nullptr) pre->next = current->next;
                     else entityHead = current->next;
                     current = current->next;
                     free(temp);
-                    temp = NULL;
+                    temp = nullptr;
                     continue;
                 }
             }
@@ -983,11 +985,11 @@ void UpdateEntity()//更新实体
                     gameState.enemyNum--;//敌人减一
                     Role.property.coin +=2;
                     EntityNode* temp = current;
-                    if (pre != NULL) pre->next = current->next;
+                    if (pre != nullptr) pre->next = current->next;
                     else entityHead = current->next;
                     current = current->next;
                     free(temp);
-                    temp = NULL;
+                    temp = nullptr;
                     continue;
                 }
             }
@@ -1003,11 +1005,11 @@ void UpdateEntity()//更新实体
                     current->entity.hp = 0;
                     if (current->entity.hp <= 0) {
                         EntityNode* temp = current;
-                        if (pre != NULL) pre->next = current->next;
+                        if (pre != nullptr) pre->next = current->next;
                         else entityHead = current->next;
                         current = current->next;
                         free(temp);
-                        temp = NULL;
+                        temp = nullptr;
                         continue;
                     }
                 }
@@ -1019,13 +1021,13 @@ void UpdateEntity()//更新实体
             {
                 Role.state.lift = 1;//举起物品
                 current->entity.hp = 0;
-                mciSendString("play getProp from 0", NULL, 0, NULL);
+                mciSendString("play getProp from 0", nullptr, 0, nullptr);
                 if (gameState.rewardRoom)
                 {
                     gameState.rewardPicked = 1;
                     EntityNode* other = entityHead;
-                    EntityNode* otherPrev = NULL;
-                    while (other != NULL)
+                    EntityNode* otherPrev = nullptr;
+                    while (other != nullptr)
                     {
                         EntityNode* next = other->next;
                         if (other != current && other->type > 20)
@@ -1091,11 +1093,11 @@ void UpdateEntity()//更新实体
                 if (current->dead_frame >= 1.4*60*60/frameRate_i) {
                     Role.state.lift = 0;//放下物品
                     EntityNode* temp = current;
-                    if (pre != NULL) pre->next = current->next;
+                    if (pre != nullptr) pre->next = current->next;
                     else entityHead = current->next;
                     current = current->next;
                     free(temp);
-                    temp = NULL;
+                    temp = nullptr;
                     continue;
                 }
             }
@@ -1108,7 +1110,7 @@ void UpdateEntity()//更新实体
 void ShowBullets()//渲染子弹
 {
     BulletNode* current = bulletHead;
-    while (current != NULL) {
+    while (current != nullptr) {
         if ( current->appear_frame <= 14) {
             int realX_bullet = current->bullet.x - bullet_front[current->appear_frame].getwidth() / 2 ;
             int realY_bullet = current->bullet.y - bullet_front[current->appear_frame].getheight() / 2 - current->bullet_height;
@@ -1124,8 +1126,8 @@ void ShowBullets()//渲染子弹
 void UpdateBullets() // 更新子弹
 {
     BulletNode* current = bulletHead;
-    BulletNode* pre = NULL;
-    while (current != NULL) {
+    BulletNode* pre = nullptr;
+    while (current != nullptr) {
         // 如果子弹的hp大于0，则更新位置
         if (current->bullet.hp > 0) {
             current->bullet.x += current->bullet.dx;
@@ -1145,11 +1147,11 @@ void UpdateBullets() // 更新子弹
             }
         }
         else {
-            if(current->appear_frame==0)mciSendString("play shootBreak from 0", NULL, 0, NULL);
+            if(current->appear_frame==0)mciSendString("play shootBreak from 0", nullptr, 0, nullptr);
             current->appear_frame++;
             if (current->appear_frame > 14)
             {
-                if (pre != NULL) {
+                if (pre != nullptr) {
                     pre->next = current->next;
                 }
                 else {
@@ -1158,7 +1160,7 @@ void UpdateBullets() // 更新子弹
                 BulletNode* temp = current;
                 current = current->next;
                 free(temp);
-                temp = NULL;
+                temp = nullptr;
                 continue;
 
             }
@@ -1193,7 +1195,7 @@ int ObstacleCollision(int oX_i, int oY_i, Ball ball, int* leftX, int* leftY, int
     DockArrayToCoordinate(&oX_i, &oY_i, &x, &y, 1);
     int leftX_i = x - (float)RoomLength_i / 2, leftY_i = y - (float)RoomWidth_i / 2;//障碍物左上角坐标
     int rightX_i = x + (float)RoomLength_i / 2, rightY_i = y + (float)RoomWidth_i / 2;//障碍物右下角坐标
-    if (leftX != NULL && leftY != NULL && rightX != NULL && rightY != NULL)
+    if (leftX != nullptr && leftY != nullptr && rightX != nullptr && rightY != nullptr)
     {
         *leftX = leftX_i;
         *leftY = leftY_i;
@@ -1253,12 +1255,12 @@ void RoleObstacleCollision()//障碍物与角色碰撞处理
 void BulletObstacleCollision()//子弹障碍物碰撞处理
 {
     BulletNode* current = bulletHead;
-    while (current != NULL)
+    while (current != nullptr)
     {
         for (int i = 0; i < ROW; i++) {
             for (int j = 0; j < COL; j++) {
                 if (Room.room[i][j] == 1) {
-                    if (ObstacleCollision(i, j, current->bullet, NULL, NULL, NULL, NULL))
+                    if (ObstacleCollision(i, j, current->bullet, nullptr, nullptr, nullptr, nullptr))
                     {
                         if(!Role.state.ghost)current->bullet.hp = 0;
                     }
@@ -1272,7 +1274,7 @@ void BulletObstacleCollision()//子弹障碍物碰撞处理
 void EntityObstacleCollision()//实体障碍物碰撞处理
 {
     EntityNode* current = entityHead;
-    while (current != NULL)
+    while (current != nullptr)
     {
         if (current->type == 2)//人形怪物
         {
@@ -1300,9 +1302,9 @@ void EntityObstacleCollision()//实体障碍物碰撞处理
 void EntityCollision()//实体碰撞和实体与角色碰撞处理
 {
     EntityNode* current1=entityHead;
-    while (current1 != NULL) {
+    while (current1 != nullptr) {
         EntityNode* current2 = current1->next;
-        while (current2 != NULL&&current1->type < 10&& current2->type<10)
+        while (current2 != nullptr&&current1->type < 10&& current2->type<10)
         {
             if (CheckCollision(current1->entity, current2->entity))
             {
@@ -1358,8 +1360,8 @@ void Attack() {//处理角色子弹攻击
     BulletNode* bullet = bulletHead;
     EntityNode* entity = entityHead;
 
-    while (bullet != NULL) {
-        while (entity != NULL) {
+    while (bullet != nullptr) {
+        while (entity != nullptr) {
             if (bullet->bullet.hp > 0 && entity->entity.hp > 0&&entity->type<10) {
                 if (CheckCollision(bullet->bullet, entity->entity) && Framer((13*60 / frameRate_i), 2)) {
                     entity->entity.hp -= Role.property.initDamage_f;
@@ -1422,9 +1424,9 @@ void CalculateScore()//计算总分
 void Save(int score,int time,int mode)//储存分数
 {
     char path[MAX_PATH];
-    SHGetFolderPath(NULL, CSIDL_PERSONAL, NULL, 0, path);    // 获取用户文档目录的路径
+    SHGetFolderPath(nullptr, CSIDL_PERSONAL, nullptr, 0, path);    // 获取用户文档目录的路径
     strcat(path, "\\save");// 在文档目录路径后追加文件夹名
-    CreateDirectory(path, NULL);//创建文件夹
+    CreateDirectory(path, nullptr);//创建文件夹
     char fileName[MAX_PATH] = { 0 };
     if (mode == 0)sprintf(fileName, "%s/score0.dat", path);
     else if (mode == 1)sprintf(fileName, "%s/score1.dat", path);
@@ -1457,7 +1459,7 @@ void Save(int score,int time,int mode)//储存分数
         }
     }
     if (count > MAXSCORES)count = MAXSCORES;
-    if (freopen(fileName, "wb", file) == NULL)return;
+    if (freopen(fileName, "wb", file) == nullptr)return;
     fwrite(scores, sizeof(Score), count, file);
     fclose(file);
 }
@@ -1475,7 +1477,7 @@ void Sound()//输出音效
     int nowHp = redPart + Role.property.blueHp_i;
     if (preHp > nowHp)
     {
-        mciSendString("play hurt from 0", NULL, 0, NULL);
+        mciSendString("play hurt from 0", nullptr, 0, nullptr);
     }
     preHp = nowHp;
 }
@@ -1490,19 +1492,19 @@ void BGM()//输出背景音乐
     if (!(pre != gameState.backgroundNum_i && !(pre <= 0 && gameState.backgroundNum_i <= 0) || preDead != dead))return;
     preDead = dead;
     pre = gameState.backgroundNum_i;
-    mciSendString("stop menu", NULL, 0, NULL);
-    mciSendString("stop dead", NULL, 0, NULL);
-    mciSendString("stop deadPic", NULL, 0, NULL);
-    mciSendString("stop room", NULL, 0, NULL);
-    mciSendString("stop fast", NULL, 0, NULL);
-    if (gameState.backgroundNum_i <= 0) mciSendString("play menu from 0 repeat", NULL, 0, NULL);
+    mciSendString("stop menu", nullptr, 0, nullptr);
+    mciSendString("stop dead", nullptr, 0, nullptr);
+    mciSendString("stop deadPic", nullptr, 0, nullptr);
+    mciSendString("stop room", nullptr, 0, nullptr);
+    mciSendString("stop fast", nullptr, 0, nullptr);
+    if (gameState.backgroundNum_i <= 0) mciSendString("play menu from 0 repeat", nullptr, 0, nullptr);
     else if (Role.player.hp <= 0)
     {
-        mciSendString("play dead from 0", NULL, 0, NULL);
-        mciSendString("play deadPic from 0 repeat", NULL, 0, NULL);
+        mciSendString("play dead from 0", nullptr, 0, nullptr);
+        mciSendString("play deadPic from 0 repeat", nullptr, 0, nullptr);
     }
-    else if (gameState.backgroundNum_i == 1) mciSendString("play room from 0 repeat", NULL, 0, NULL);
-    else if (gameState.backgroundNum_i == 2) mciSendString("play fast from 0 repeat", NULL, 0, NULL);
+    else if (gameState.backgroundNum_i == 1) mciSendString("play room from 0 repeat", nullptr, 0, nullptr);
+    else if (gameState.backgroundNum_i == 2) mciSendString("play fast from 0 repeat", nullptr, 0, nullptr);
 }
 
 void Init()//初始化
@@ -1690,7 +1692,7 @@ void GameStateDeal()//游戏状态处理
 int main()
 {
     AddFontResourceEx("../assets/fonts/方正流行体_GBK.TTF", FR_PRIVATE, 0);
-    srand(time(NULL));
+    srand(time(nullptr));
     initgraph(Width_i, Hight_i);
     InitPIC();
     InitSound();

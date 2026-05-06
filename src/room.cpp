@@ -1,4 +1,6 @@
 #include "head.h"
+#include <string>
+#include <vector>
 
 Point* CreateNode(int x, int y, Point* parent) // 创建新节点
 {
@@ -6,12 +8,12 @@ Point* CreateNode(int x, int y, Point* parent) // 创建新节点
 	if (!newNode)
 	{
 		fprintf(stderr, "申请新节点内存失败");
-		return NULL;
+		return nullptr;
 	}
 	newNode->x = x;
 	newNode->y = y;
 	newNode->parent = parent; // 初始化父节点
-	newNode->next = NULL;
+	newNode->next = nullptr;
 	return newNode;
 }
 
@@ -23,7 +25,7 @@ void JoinQueue(Queue* queue, int x, int y, Point* parent) // 入队
 		return;
 	}
 	Point* newNode = CreateNode(x, y, parent);
-	if (queue->rear == NULL)
+	if (queue->rear == nullptr)
 	{
 		queue->front = queue->rear = newNode;
 		return;
@@ -38,29 +40,29 @@ Queue* InitQueue() // 创建新队列
 	if (!newQue)
 	{
 		fprintf(stderr, "创建队列失败：内存申请失败");
-		return NULL;
+		return nullptr;
 	}
-	newQue->front = newQue->rear = NULL;
+	newQue->front = newQue->rear = nullptr;
 	return newQue;
 }
 
 Point* DeleteQueue(Queue* nowqueue, int* dex, int* dey) // 出队
 {
-	if (!nowqueue) return NULL;
-	if (nowqueue->front == NULL) return NULL;
+	if (!nowqueue) return nullptr;
+	if (nowqueue->front == nullptr) return nullptr;
 	*dex = nowqueue->front->x;
 	*dey = nowqueue->front->y;
 	Point* temp = nowqueue->front;
 	nowqueue->front = nowqueue->front->next;
-	if (nowqueue->front == NULL) nowqueue->rear = NULL;
+	if (nowqueue->front == nullptr) nowqueue->rear = nullptr;
 	return temp;
 }
 
 void FreeQueue(Queue* queue) // 释放队列
 {
-	if (queue == NULL) return;
+	if (queue == nullptr) return;
 	Point* current = queue->front;
-	while (current != NULL)
+	while (current != nullptr)
 	{
 		Point* temp = current;
 		current = current->next;
@@ -84,22 +86,22 @@ Point* BFS(int(*room)[COL], int sX, int sY, int eX, int eY,int findPath) // 寻路
 			visited[i][j] = 0;
 		}
 	}
-	if (!isValid(sX, sY) || !isValid(eX, eY)) return NULL;
+	if (!isValid(sX, sY) || !isValid(eX, eY)) return nullptr;
 	if (findPath)
 	{
-		if (room[sX][sY] >0 && room[sX][sY]<10 || room[eX][eY] >0 && room[eX][eY]<10) return NULL;
+		if (room[sX][sY] >0 && room[sX][sY]<10 || room[eX][eY] >0 && room[eX][eY]<10) return nullptr;
 	}
 	else
 	{
-		if (room[sX][sY] || room[eX][eY]) return NULL;
+		if (room[sX][sY] || room[eX][eY]) return nullptr;
 	}
 
 	Queue* q = InitQueue();
-	JoinQueue(q, sX, sY, NULL);
+	JoinQueue(q, sX, sY, nullptr);
 	visited[sX][sY] = 1;
 	int curX = 0;
 	int curY = 0;
-	while (q->front != NULL)
+	while (q->front != nullptr)
 	{
 		Point* parent = DeleteQueue(q, &curX, &curY);
 		if (curX == eX && curY == eY)
@@ -128,7 +130,7 @@ Point* BFS(int(*room)[COL], int sX, int sY, int eX, int eY,int findPath) // 寻路
 		}
 	}
 	FreeQueue(q);
-	return NULL;
+	return nullptr;
 }
 
 int AINextPath(float beginX,float beginY,float endX,float endY,float* nextX,float* nextY,int (*room)[COL])//下一个点寻路(坐标)
@@ -138,8 +140,8 @@ int AINextPath(float beginX,float beginY,float endX,float endY,float* nextX,floa
 	int eRow=0, eCol=0;
 	DockArrayToCoordinate(&eRow, &eCol, &endX, &endY, 0);
 	Point* current = BFS(room, bRow, bCol, eRow, eCol,1);
-	if (current==NULL||current->parent == NULL)return 0;
-	while (current->parent->parent != NULL)
+	if (current==nullptr||current->parent == nullptr)return 0;
+	while (current->parent->parent != nullptr)
 	{
 		current = current->parent;
 	}
