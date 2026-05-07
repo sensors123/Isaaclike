@@ -5,6 +5,7 @@
   * [特性](#特性-features)
 * 使用指南
   * [操作说明](#操作说明-controls)
+  * [游戏内容](#游戏内容-GameContent)
   * [安装与运行（必读）](#安装与运行-setup--run)
   * [项目结构](#项目结构-project-structure)
 * 技术细节
@@ -47,7 +48,7 @@
 * **重新开始 (Restart):** `R`
 * **注意 (TIPS):** **重新开始是从第一关开始** 
 
-## 游戏内容 (Game Content)
+## 游戏内容 (GameContent)
 
 * **关卡 (Level):** 
    * **经典模式**：模拟正常以撒的结合速度与节奏
