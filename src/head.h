@@ -1,11 +1,11 @@
 #pragma once//防止头文件重复包含
 #pragma warning(disable:4996)
 #pragma comment(lib, "winmm.lib")//链接Windows多媒体库以实现音效播放和定时器
-#include <stdio.h>
-#include <stdlib.h>//
+#include <iostream>
+#include <cstdlib>
 #include <easyx.h>//Easyx图形库
-#include <time.h>//时间，随机数
-#include <math.h>//几何、物理计算
+#include <ctime>//时间，随机数
+#include <cmath>//几何、物理计算
 #include <shlobj.h> //文件路径操作，存档读写
 
 constexpr int ROW = 7;
