@@ -86,10 +86,10 @@
 * **图形库 (Graphics Library):** EasyX (官网: [easyx.cn](https://easyx.cn/))
 * **核心库 (Core Libraries):**
     * `<easyx.h>`
-    * `<stdio.h>`
-    * `<stdlib.h>`
-    * `<time.h>`
-    * `<math.h>`
+    * `<iostream>`
+    * `<cstdlib>`
+    * `<ctime>`
+    * `<cmath>`
     * `<shlobj.h>` (用于特定 Windows 功能)
     * `winmm.lib` (通过 `#pragma comment(lib, "winmm.lib")` 链接，用于多媒体功能，如声音播放)
 * **开发环境 (IDE):** Visual Studio 2026
